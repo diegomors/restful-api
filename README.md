@@ -3,7 +3,7 @@
 
 ## How to start application
 1. Install [Node.js](http://nodejs.org/)
-2. npm install -g nodemon
+2. npm install -g typescript nodemon 
 3. cd {your-app-name} 
 4. npm install
 5. npm run dev

@@ -5,7 +5,11 @@
     "main": "server.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "set NODE_ENV=development && nodemon ./node_modules/.bin/ts-node ./src/server.ts"
+        "dev": "tsc -d -p . && nodemon ./build/server.js --dev",
+        "qa": "tsc -d -p . && nodemon ./build/server.js --qa",
+        "hom": "tsc -d -p . && nodemon ./build/server.js --hom",
+        "prod": "tsc -d -p . && nodemon ./build/server.js --prod",
+        "start": "tsc -d -p . && nodemon ./build/server.js"
     },
     "repository": {
         "type": "git",
@@ -13,10 +17,10 @@
     },
     "keywords": [
         "API",
-        "REST",
-        "MongoDB",
+        "RESTful",
         "Node",
-        "TypeScript"
+        "TypeScript",
+        "MongoDB"
     ],
     "author": "Diego Moraes",
     "license": "ISC",
@@ -34,8 +38,7 @@
         "@types/http-status": "^0.2.30",
         "@types/mongoose": "^5.0.1",
         "@types/morgan": "^1.7.35",
-        "@types/node": "^6.0.52",
-        "ts-node": "^1.7.2",
-        "typescript": "^2.0.6"
+        "@types/node": "^9.4.5",
+        "typescript": "^2.7.1"
     }
 }
