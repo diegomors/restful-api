@@ -8,8 +8,7 @@
         "dev": "tsc -d -p . && nodemon ./build/server.js --dev",
         "qa": "tsc -d -p . && nodemon ./build/server.js --qa",
         "hom": "tsc -d -p . && nodemon ./build/server.js --hom",
-        "prod": "tsc -d -p . && nodemon ./build/server.js --prod",
-        "start": "tsc -d -p . && nodemon ./build/server.js"
+        "prod": "tsc -d -p . && nodemon ./build/server.js --prod"
     },
     "repository": {
         "type": "git",
