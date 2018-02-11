@@ -1,7 +1,7 @@
 # RESTful API with TypeScript, Node, ES6 and MongoDB
 
 
-**## How to start application**
+## How to start application
 1. Install [Node.js](http://nodejs.org/)
 2. Set environment variable NODE_ENV = 'C:\Program Files\nodejs\'
 3. npm install -g nodemon express-generator
@@ -11,9 +11,9 @@
 7. [http://localhost:8080/](http://localhost:8080/)
 
 
-**## How to deploy application**
+## How to deploy application
 
-**### Install the Heroku CLI**
+### Install the Heroku CLI
 
 Download and install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
 
@@ -23,7 +23,7 @@ If you haven't already, log in to your Heroku account and follow the prompts to 
 $ heroku login
 `
 
-**### Create a new Git repository**
+### Create a new Git repository
 Initialize a git repository in a new or existing directory
 
 `
@@ -32,7 +32,7 @@ $ git init
 $ heroku git:remote -a {your-app-name}
 `
 
-**### Deploy your application**
+### Deploy your application
 Commit your code to the repository and deploy it to Heroku using Git.
 
 `
@@ -41,7 +41,7 @@ $ git commit -am "make it better"
 $ git push heroku master
 `
 
-**### Existing Git repository**
+### Existing Git repository
 For existing repositories, simply add the heroku remote
 
 `
