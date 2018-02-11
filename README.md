@@ -3,12 +3,11 @@
 
 ## How to start application
 1. Install [Node.js](http://nodejs.org/)
-2. Set environment variable NODE_ENV = 'C:\Program Files\nodejs\'
-3. npm install -g nodemon express-generator
-4. cd {your-app-name} 
-5. npm install
-6. npm run dev
-7. [http://localhost:8080/](http://localhost:8080/)
+2. npm install -g nodemon
+3. cd {your-app-name} 
+4. npm install
+5. npm run dev
+6. [http://localhost:8080/](http://localhost:8080/)
 
 
 ## How to deploy application

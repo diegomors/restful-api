@@ -5,7 +5,7 @@
     "main": "server.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon ./node_modules/.bin/ts-node ./src/server.ts"
+        "dev": "set NODE_ENV=development && nodemon ./node_modules/.bin/ts-node ./src/server.ts"
     },
     "repository": {
         "type": "git",
