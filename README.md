@@ -6,8 +6,7 @@
 2. npm install -g typescript nodemon 
 3. cd {your-app-name} 
 4. npm install
-5. npm run dev
-6. [http://localhost:8080/](http://localhost:8080/)
+5. npm run [dev, qa, hom, prod]
 
 
 ## How to deploy application
