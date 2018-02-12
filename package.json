@@ -1,7 +1,7 @@
 {
     "name": "restful-api",
     "version": "1.0.0",
-    "description": "RESTful API with TypeScript, Node, ES6 and MongoDB",
+    "description": "RESTful API with TypeScript, Node, Express and MongoDB",
     "main": "server.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,6 +19,7 @@
         "RESTful",
         "Node",
         "TypeScript",
+        "Express",
         "MongoDB"
     ],
     "author": "Diego Moraes",

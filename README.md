@@ -1,4 +1,4 @@
-# RESTful API with TypeScript, Node, ES6 and MongoDB
+# RESTful API with TypeScript, Node, Express and MongoDB
 
 
 ## How to start application
