@@ -13,11 +13,13 @@
 9. mongod --dbpath ./data
 10. npm start (dev by default) OR npm run [dev, qa, hom, prod]
 
-Avaliable by default in https://localhost:3000/
-Enjoy!
+    Avaliable by default in https://localhost:3000/
+
+    Enjoy!
 
 ### To set a different HOST and PORT
 1. Include in package.json scripts [dev, qa, hom, prod] before npm command
-`
-"set HOST=127.0.0.1 && set PORT=8080 && [...]"
-`
+
+    `
+    "set HOST=127.0.0.1 && set PORT=8080 && [...]"
+    `
