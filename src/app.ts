@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
 
-import DataBase from './config/db';
+import { DataBase } from './config/db';
 import { UserController } from './modules/user/controller';
 
 export class App {
@@ -15,21 +15,24 @@ export class App {
     public host: string;
     public port: number;   
 
+    private dataBase: DataBase;
+
     constructor() {                        
         this.setEnvironment();
         this.setURI();
+        this.createDataBaseConnection();
 
         this.app = express();
         this.middleware();
         this.routes();                 
     }
 
-    dataBaseConnection() {
-        DataBase.createConnection();
+    createDataBaseConnection() {
+        this.dataBase = new DataBase(this.host, 'restful-api');
     }
 
     closeDataBaseConnection(message, callback) {
-        DataBase.closeConnection(message, ()=> callback());
+        this.dataBase.closeConnection(message, ()=> callback());
     }
 
     middleware() {
