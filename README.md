@@ -11,7 +11,6 @@
 7. npm install
 8. md data
 9. mongod --dbpath ./data
-10. add database restful-api
 10. npm start (dev by default) OR npm run [dev, qa, hom, prod]
 
     Avaliable by default in http://localhost:3000/
