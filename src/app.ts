@@ -1,14 +1,9 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
-import * as process from 'process';
 
-export enum Environment {
-    DEV = 1,
-    QA = 2,
-    HOM = 3, 
-    PROD = 4 
-}
+import DataBase from './config/db';
+import { UserController } from './modules/user/controller';
 
 export class App {
 
@@ -16,19 +11,25 @@ export class App {
     private morgan: morgan.Morgan;
     private bodyParser;
 
-    private environment: Environment; 
-    private port: number;   
+    public environment: Environment; 
+    public host: string;
+    public port: number;   
 
-    constructor(port: number = 3000) {
-        let context=this;                
-        this.port = port;
+    constructor() {                        
         this.setEnvironment();
+        this.setURI();
 
         this.app = express();
         this.middleware();
-        this.routes();  
-        
-        this.app.listen(context.port, () => console.log(`Server is running on port ${context.port} on ENV=${Environment[context.environment]}`));
+        this.routes();                 
+    }
+
+    dataBaseConnection() {
+        DataBase.createConnection();
+    }
+
+    closeDataBaseConnection(message, callback) {
+        DataBase.closeConnection(message, ()=> callback());
     }
 
     middleware() {
@@ -40,31 +41,39 @@ export class App {
     routes() {
         let context=this;
         this.app.route('/').get((req, res) => res.status(200).json({ 
-            'environment': Environment[context.environment]
+            'environment': Environment[context.environment],
+            'message': 'It Works!'
         }));
+
+        new UserController(this.app);
     }
 
-    private setEnvironment() {
-        let context=this;
-        process.argv.forEach((val, index) => {
-            switch(val) {
-                case '--dev':
-                    context.environment = Environment.DEV;
-                    break;
-                case '--qa':
-                    context.environment = Environment.QA;
-                    break;
-                case '--hom':
-                    context.environment = Environment.HOM;
-                    break;
-                case '--prod':
-                    context.environment = Environment.PROD;
-                    break;
-            }
-
-            if(context.environment) return;
-        });
-
-        if(!context.environment) context.environment = Environment.DEV;
+    private setURI() {
+        this.host = process.env.HOST || 'localhost';
+        this.port = +(process.env.PORT || 3000);
     }
+
+    private setEnvironment() {        
+        switch(process.env.NODE_ENV) {
+            case 'qa':
+                this.environment = Environment.QA;
+                break;
+            case 'hom':
+                this.environment = Environment.HOM;
+                break;
+            case 'prod':
+                this.environment = Environment.PROD;
+                break;
+            default:
+                this.environment = Environment.DEV;
+                break;
+        }
+    }
+}
+
+export enum Environment {
+    DEV = 1,
+    QA = 2,
+    HOM = 3, 
+    PROD = 4 
 }
