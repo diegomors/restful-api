@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
+        "sourceMap": true,
         "target": "es5",
         "module": "commonjs",
-        "outDir": "restful-api",
+        "outDir": "dist",
         "lib": ["es2015"],
         "typeRoots":[
             "../node_modules/@types"

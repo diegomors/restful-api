@@ -5,12 +5,15 @@
     "main": "server.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "prestart": "tsc -d -p .",
-        "start": "nodemon ./restful-api/server.js",
+        "copy": "copyfiles -f ./package.json ./dist/ && copyfiles -f ./resources/* ./dist/resources/",
+        "build": "tsc -d -p . && npm run copy",
+        "start": "npm run build && node ./dist/server.js",
         "dev": "set NODE_ENV=dev && npm start",
         "qa": "set NODE_ENV=qa && npm start",
         "hom": "set NODE_ENV=hom && npm start",
-        "prod": "set NODE_ENV=prod && npm start"
+        "prod": "set NODE_ENV=prod && npm start",
+        "nodemon": "npm run build && nodemon ./dist/server.js",
+        "debug": "npm run build && node --inspect-brk ./dist/server.js"
     },
     "repository": {
         "type": "git",
@@ -31,6 +34,7 @@
         "body-parser": "^1.18.2",
         "express": "^4.16.2",
         "http-status": "^1.0.1",
+        "log": "^6.0.0",
         "mongoose": "^5.6.9",
         "morgan": "^1.9.1"
     },

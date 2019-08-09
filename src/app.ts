@@ -1,25 +1,22 @@
+import * as fs from 'fs';
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
 
-import { DataBase } from './config/db';
-import { UserController } from './modules/user/controller';
+import { DataBase } from './modules/commom/database/db';
+import { UserController } from './modules/v1/user/controller';
 
 export class App {
 
-    public app: express.Application;
+    private app: express.Application;
     private morgan: morgan.Morgan;
     private bodyParser;
 
-    public environment: Environment; 
-    public host: string;
-    public port: number;   
-
+    public config: any;
     private dataBase: DataBase;
 
     constructor() {                        
         this.setEnvironment();
-        this.setURI();
         this.createDataBaseConnection();
 
         this.app = express();
@@ -27,8 +24,12 @@ export class App {
         this.routes();                 
     }
 
-    createDataBaseConnection() {
-        this.dataBase = new DataBase(this.host, 'restful-api');
+    listen(port, callback) {
+        this.app.listen(port, callback);
+    }
+
+    createDataBaseConnection() {        
+        this.dataBase = new DataBase(this.config);
     }
 
     closeDataBaseConnection(message, callback) {
@@ -42,41 +43,19 @@ export class App {
     }
 
     routes() {
-        let context=this;
-        this.app.route('/').get((req, res) => res.status(200).json({ 
-            'environment': Environment[context.environment],
-            'message': 'It Works!'
+        const context=this;
+        this.app.route('/').get((req, res) => res.status(200).json({                         
+            'status': 'OK',
+            'date': new Date().toISOString(),
+            'environment': context.config.env
         }));
 
         new UserController(this.app);
     }
 
-    private setURI() {
-        this.host = process.env.HOST || 'localhost';
-        this.port = +(process.env.PORT || 3000);
+    private setEnvironment() {  
+        const env = (process.env.NODE_ENV || "dev").trim();        
+        const rawdata = fs.readFileSync(`resources/${env}-properties.json`, 'UTF-8');
+        this.config = JSON.parse(rawdata);
     }
-
-    private setEnvironment() {        
-        switch(process.env.NODE_ENV) {
-            case 'qa':
-                this.environment = Environment.QA;
-                break;
-            case 'hom':
-                this.environment = Environment.HOM;
-                break;
-            case 'prod':
-                this.environment = Environment.PROD;
-                break;
-            default:
-                this.environment = Environment.DEV;
-                break;
-        }
-    }
-}
-
-export enum Environment {
-    DEV = 1,
-    QA = 2,
-    HOM = 3, 
-    PROD = 4 
 }

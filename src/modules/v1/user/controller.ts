@@ -1,12 +1,10 @@
-import * as repository from './repository';
 import * as httpStatus from 'http-status';
+import { BaseController } from '../../commom/controller';
+import repository from './repository';
 
-const sendResponse = function(res, statusCode, data) {
-    res.status(statusCode).json({ 'result': data });
-}
-
-export class UserController {
+export class UserController extends BaseController {
     constructor(app) {
+        super();
         this.createRoutes(app);
     }
 
@@ -21,9 +19,9 @@ export class UserController {
     async getAll(req, res) {
         try {
             const users = await repository.getAll();
-            sendResponse(res, httpStatus.OK, users);
+            super.sendResponse(req, res, httpStatus.OK, users);
         } catch (error) {
-            this.handleError(error, res);
+            this.handleError(error, req, res);
         }
     }
 
@@ -31,17 +29,17 @@ export class UserController {
         try {
             const id = { _id: req.params.id };
             if(!id) {
-                sendResponse(res, httpStatus.OK, 'Usuário não foi encontrado');
+                super.sendResponse(req, res, httpStatus.OK, 'User not found');
             }
 
             const user = await repository.getById(id);
             if(!user) {
-                sendResponse(res, httpStatus.OK, 'Usuário não foi encontrado');
+                super.sendResponse(req, res, httpStatus.OK, 'User not found');
             } else {
-                sendResponse(res, httpStatus.OK, user);
+                super.sendResponse(req, res, httpStatus.OK, user);
             }
         } catch (error) {
-            this.handleError(error, res);
+            super.handleError(error, req, res);
         }
     }
 
@@ -49,9 +47,9 @@ export class UserController {
         try {
             const body = req.body;
             const user = await repository.create(body);
-            sendResponse(res, httpStatus.CREATED, 'Usuário criado com sucesso');
+            super.sendResponse(req, res, httpStatus.CREATED, 'User created successful');
         } catch (error) {
-            this.handleError(error, res);
+            super.handleError(error, req, res);
         }
     }
 
@@ -60,9 +58,9 @@ export class UserController {
             const id = { _id: req.params.id };
             const body = req.body;
             const user = await repository.update(id, body);
-            sendResponse(res, httpStatus.OK, 'Usuário atualizado com sucesso');
+            super.sendResponse(req, res, httpStatus.OK, 'User updated successful');
         } catch (error) {
-            this.handleError(error, res);
+            super.handleError(error, req, res);
         }
     }
 
@@ -70,15 +68,10 @@ export class UserController {
         try {
             const id = { _id: req.params.id };
             const user = await repository.remove(id);
-            sendResponse(res, httpStatus.OK, 'Usuário deletado com sucesso');
+            super.sendResponse(req, res, httpStatus.OK, 'User deleted successful');
         } catch (error) {
-            this.handleError(error, res);
+            super.handleError(error, req, res);
         }
-    }
-
-    handleError(err, res) {
-        console.log(`Erro: ${ err.message }`)
-        sendResponse(res, httpStatus.INTERNAL_SERVER_ERROR, `Erro: ${ err.message }`);
     }
 
 }

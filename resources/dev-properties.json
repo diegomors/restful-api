@@ -1,0 +1,6 @@
+{
+    "env": "dev",
+    "port": 3000,
+    "dbhost": "192.168.99.100",
+    "dbname": "restful-db"
+}

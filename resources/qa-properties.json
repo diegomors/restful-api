@@ -1,0 +1,6 @@
+{
+    "env": "qa",
+    "port": "",
+    "dbhost": "",
+    "dbname": ""
+}

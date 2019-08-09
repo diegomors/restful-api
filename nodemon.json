@@ -4,12 +4,13 @@
         ".git",
         "node_modules/**/node_modules"
     ],
+    "exec": "tsc -d -p . && ts-node ./src/server.ts",
     "verbose": true,
     "execMap": {
         "js": "node --harmony"
     },
     "watch": [
-        "src/"
+        "src"
     ],
     "ext": "js json ts"
 }
